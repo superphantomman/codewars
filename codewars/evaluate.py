@@ -3,6 +3,9 @@
 
 #1+2*3*4-1
 
+
+#change the way that -1 is treated as normal decimal
+
 def calc(expression):
     
 
@@ -13,7 +16,6 @@ def calc(expression):
     ex = ex.replace("+-", "-")
     ex = ex.replace("-+", "-")
 
-    expression+="+"
 
     buff1 : float = inf; buff2 : float = inf
     result : float = 0
@@ -22,15 +24,45 @@ def calc(expression):
     n: int = len( ex )
     op : str = '+'
     op2 = ""
-    ops : set = set(['+', '-', '/', '*'])
+    ops : set = set(['+', '/', '*', '-'])
     
-#Correct multiplication problem
-    print (f"ex={ex}")
+
 
     while i <  n:
-        if ex[i] not in ops:
+
+
+        
+        if buff1 != inf and buff2 != inf:
+            if op2 != '':
+                match op2:
+                    case '*': buff1 *= buff2
+                    case '/': buff1 /= buff2
+
+                buff2 = inf
+                op2 = ''
+            else:
+                result+= buff1
+                buff1=buff2
+                buff2=inf
+
             
 
+        if ex[i] == '/' or ex[i] == '*':
+            op2 = ex[i]
+        
+
+
+
+
+
+        if ex[i] not in ops or ex[i] == '-':
+
+            
+            #dealing with number less than 0
+            neg : int = 1
+            if ex[i] == '-':
+                neg=-1
+                i+=1
             
             #dealing with brackets in string
             if(ex[i] == '('):
@@ -39,14 +71,9 @@ def calc(expression):
                 i+=1
                 while depth != 0:
 
-
-                    print(f"{depth}->{sub_ex}")
                     if ex[i] == '(': depth+=1
                     elif ex[i] == ')': depth-=1
-                        
-                    
                     sub_ex += ex[i] 
-                    
                     i+=1
                 
 
@@ -62,51 +89,25 @@ def calc(expression):
 
 
 
+            if buff1 == inf: buff1 = float( d ) * neg
+            else: buff2 = float( d ) * neg
 
-            if buff1 == inf: buff1 = float( d )
-            else: buff2 = float( d )
+
+            
             continue
         
-        if op2 != "":
-            match op2:
-                case "*":
-                    # print(f"{buff1}*={buff2}") 
-                    buff1*=buff2
-                case "/": 
-                    # print(f"{buff1}/={buff2}") 
-                    buff1/=buff2
-                    
-            op2=""
-            buff2==inf
 
-        if ex[i] == '+' or ex[i] == '-':
-            match op:
-                case '+':
-                    # print(f"{result}+={buff1}")
-                    result += buff1
-                    
-                case '-':
-                    # print(f"{result}-={buff1}")
-                    result -= buff1
-            buff1 = inf
-            buff2 = inf
-            op = ex[i]
-            op2 = ''
-        else:
-            op2 = ex[i]
+
         i+=1
         
-            
+
     if op2 != "":
         match op2:
             case "*": buff1*=buff2
             case "/": buff1/=buff2
+        buff2 = inf
 
-    # print(f"buff1={buff1}")
-    match op:
-        case '+': result+=buff1
-        case '-': result-=buff1    
+    if buff2 != inf:
+        buff1+=buff2
 
-    print(f"result:{result}")
-
-    return result
+    return result+buff1 
