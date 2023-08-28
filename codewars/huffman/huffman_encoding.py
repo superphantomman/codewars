@@ -25,6 +25,7 @@ def buildDict(freqs : list) -> dict:
             )
         def __repr__(self) -> str:
             return f"{self.data} -> {self.count}"
+        
     nodes : list = [ Node( x , y, None, None) for x, y in sorted(freqs, key=lambda e : e[1] ,reverse=True) ]
 
     
@@ -36,8 +37,7 @@ def buildDict(freqs : list) -> dict:
         n2 = nodes.pop()
         node = n1 + n2
         
-        # print ( f"{n1.data} + {n2.data} -> {node.count}")
-        # print([x.data for x in nodes ])
+
         #index of place where should new node be located to be nodes in order
         index = next( (i for i, v in enumerate(nodes) if v.count < node.count ), None) 
         
@@ -100,18 +100,18 @@ def decode(freqs : list ,bits : str):
     
     
     
-    result = ""
+    result = [""]
     
     d = {}
     for key, val in buildDict(freqs).items(): d[val] = key
 
     buff : str = ""
     for bit in bits:
-        buff += bit
+        buff+=bit
         if buff in d: 
-            result += d[buff]
-            buff = ""
+            result.append( d[buff] ) 
+            buff =""
     
 
     
-    return result
+    return "".join(result)
