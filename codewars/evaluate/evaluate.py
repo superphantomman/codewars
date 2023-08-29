@@ -1,10 +1,7 @@
 # Evaluate mathematical expression
 # https://www.codewars.com/kata/52a78825cdfc2cfc87000005/train/python
 
-#1+2*3*4-1
 
-
-#change the way that -1 is treated as normal decimal
 
 def calc(expression):
     
@@ -81,12 +78,9 @@ def calc(expression):
 
             if buff1 == inf: buff1 = float( d ) * neg
             else: buff2 = float( d ) * neg
-
-
             
             continue
         
-
 
         i+=1
         

@@ -1,4 +1,4 @@
-from evaluate import calc
+from codewars.evaluate.evaluate import calc
 
 #write more tests and nested part do it and test --
 if __name__ == "__main__":
