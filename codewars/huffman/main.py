@@ -46,6 +46,3 @@ if __name__ == "__main__":
         except AssertionError as e:
             print(f"{i}. {val} != {expected}")
         i+=1
-
-# 5.448240
-# 5.220726
