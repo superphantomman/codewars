@@ -1,9 +1,12 @@
 from create_sample_data import create_data
-from find_position import brute_find_position, find_position
+from find_position2 import find_position
+from random import randint
+from time import time
 import os
 
 if __name__ == "__main__":
     
+
     filename = "data.txt"
     local_path = os.path.dirname(os.path.abspath(__file__))
     file_path = f"{local_path}/{filename}"
@@ -15,36 +18,28 @@ if __name__ == "__main__":
         create_data(file_path)
     
 
-    # with open(file_path, "r") as f:
-    #     data = f.read()
-        
-    #     tests = [
-    #         "121","363", "0251", "12345","1112", "1122", "1011", 
-    #              "4040", "112", "123456", "3901", "12123", "32324"
-    #              , "123114", "123413", "8779", "863", "45674", "356","0404"
-                 
-    #              ]
-        
-    #     for test in tests:
-    #         brute = brute_find_position(test, data)
-    #         print(
-    #             (f"""({brute},{"".join(data[brute:brute+len(test)])})""")
-    #         )
-        
-
     tests = [
- 
-        (13034,"53635"),
 
-        # (6957586376885,"555899959741198"),
-        # ( 35286, "09991") , 
+        # (2228, "978"),
+        # (909, "340"),
+        # (6608, "9193"),
+        # (1017, "376"),
+        # (957,"356"), 
+        # (49504,"12123"), 
+        #  (4450,"3901"),
+        # (573630,"123114"),
+        # (1048,"863"),
 
-
-
+        # (382689688, "949225100"),
+        (6957586376885,"555899959741198"),
+        # (1000000071,"123456798"),
+         
+        # (190,"00"),
+        # ( 35286, "09991") ,
+        # (13034,"53635"),
         #  (1091,"040"), 
         # (0,"123456789"),
         # (0,"1234567891"),
-        # (1000000071,"123456798"),
         # (9,"10"),
         # (13,"121"),
         # (61,"363"),
@@ -60,56 +55,45 @@ if __name__ == "__main__":
         # (15049,"4040"),
         # (12,"112"),
         # (0,"123456"),
-        # (4450,"3901"),
-        # (49504,"12123"),
         # (8184,"32324"),
-        # (573630,"123114"),
         # (12539,"123413"),
         # (2225,"8779"),
-        # (1048,"863"),
         # (17157,"45674"),
-        # (957,"356")
+        
     ]
- 
 
-    for test in tests:
-        v = find_position(test[1])
-        try:
-            assert v == test[0]
-        except AssertionError as e:
-            print(f"for {test[1]}")
-            print(f"{v} != {test[0]}") 
-
+  
+    for _ in range(5):
+        start_time = time()
+        for test in tests:
             with open( file_path, "r") as f:
-                data = f.read()
-                print("should be")
-                print(
-                    data
-                    [ ( test[0]-len(test[1]) ) 
-                     : ( test[0]+len(test[1]) * 2 ) 
-                    ])
-                print("not be")
+                    data = f.read()
+            v = find_position(test[1])
+            try:
+                assert v == test[0]
+                print(f"Passed\n{test[1]}")
+            except AssertionError as e:
+                print(f"for {test[1]}")
+                print(f"{v} != {test[0]}") 
 
-                print(
-                    data
-                    [ ( v-len(test[1]) ) 
-                     : ( v+len(test[1]) * 2 ) 
-                    ])
+                with open( file_path, "r") as f:
+                    data = f.read()
+                    print("should be")
+                    print(
+                        data
+                        [ ( test[0]-len(test[1]) ) 
+                        : ( test[0]+len(test[1]) * 2 ) 
+                        ])
+                    print("not be")
 
+                    print(
+                        data
+                        [ ( v-len(test[1]) ) 
+                        : ( v+len(test[1]) * 2 ) 
+                        ])
+            except Exception as e:
+                print(e)
+            
+        end_time = time()
+        print(f"Elapsed time: {(end_time-start_time):.6f} seconds")
 
-
-# from itertools import permutations
-
-# string = "5365"
-# length = 4
-# # 
-# numbers = []
-
-# for c in permutations(string, len(string)):
-#     print("".join(c))
-
-
-# print("Generated numbers:")
-# for num in numbers:
-#     print(num)
-# # 
