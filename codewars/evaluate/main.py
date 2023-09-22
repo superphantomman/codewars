@@ -1,7 +1,6 @@
 from evaluate import calc
 
-if __name__ == "__main__":
-    
+def main():
     #each tuple contains sample expression with answer to it 
     tests = [
         ("3*4-1",11),("3*4-12",0),
@@ -21,4 +20,8 @@ if __name__ == "__main__":
                 f"""!!Assertion Exception!!!\n{test[0]}\n{result} != {test[1]}""" )
             print("------------")
 
+    return
 
+if __name__ == "__main__":
+    main()    
+    

@@ -3,9 +3,7 @@ from huffman_encoding import frequencies, encode, decode
 from random_string import generate_random_string
 from time import time
 
-
-if __name__ == "__main__":
-
+def main():
 
     sample_test = [ generate_random_string(100) for _ in range(10000) ] 
 
@@ -46,3 +44,7 @@ if __name__ == "__main__":
         except AssertionError as e:
             print(f"{i}. {val} != {expected}")
         i+=1
+
+
+if __name__ == "__main__":
+    main()
